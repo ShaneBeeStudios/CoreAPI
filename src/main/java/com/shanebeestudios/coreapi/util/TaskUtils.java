@@ -46,25 +46,25 @@ public class TaskUtils {
         runTaskLaterAsynchronously(runnable, 0);
     }
 
-    /** Run a task later
+    /**
+     * Run a task later
+     *
      * @param runnable Task to run
-     * @param delay Delay in ticks before task runs
+     * @param delay    Delay in ticks before task runs
      */
     public static void runTaskLater(Runnable runnable, long delay) {
-        if (PLUGIN == null) {
-            throw new IllegalStateException("Plugin is not initialized.");
-        }
+        pluginCheck();
         SCHEDULER.runTaskLater(PLUGIN, runnable, delay);
     }
 
-    /** Run a task later async
+    /**
+     * Run a task later async
+     *
      * @param runnable Task to run
-     * @param delay Delay in ticks before task runs
+     * @param delay    Delay in ticks before task runs
      */
     public static void runTaskLaterAsynchronously(Runnable runnable, long delay) {
-        if (PLUGIN == null) {
-            throw new IllegalStateException("Plugin is not initialized.");
-        }
+        pluginCheck();
         SCHEDULER.runTaskLaterAsynchronously(PLUGIN, runnable, delay);
     }
 
@@ -76,9 +76,7 @@ public class TaskUtils {
      * @param period   Period in ticks how often task runs
      */
     public static void runTaskTimer(Runnable runnable, long delay, long period) {
-        if (PLUGIN == null) {
-            throw new IllegalStateException("Plugin is not initialized.");
-        }
+        pluginCheck();
         SCHEDULER.runTaskTimer(PLUGIN, runnable, delay, period);
     }
 
@@ -90,10 +88,14 @@ public class TaskUtils {
      * @param period   Period in ticks how often task runs
      */
     public static void runTaskTimerAsynchronously(Runnable runnable, long delay, long period) {
-        if (PLUGIN == null) {
-            throw new IllegalStateException("Plugin is not initialized.");
-        }
+        pluginCheck();
         SCHEDULER.runTaskTimerAsynchronously(PLUGIN, runnable, delay, period);
+    }
+
+    private static void pluginCheck() {
+        if (PLUGIN == null) {
+            throw new IllegalStateException("Plugin is not initialized, run 'TaskUtils.init(Plugin)' first.");
+        }
     }
 
 }
