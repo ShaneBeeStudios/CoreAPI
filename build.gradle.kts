@@ -40,10 +40,12 @@ tasks {
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
+        options.overview("src/main/javadoc/overview.html")
         (options as StandardJavadocDocletOptions).links(
             "https://jd.papermc.io/paper/1.21.1/",
             "https://jd.advntr.dev/api/4.17.0/",
         )
+        (options as StandardJavadocDocletOptions).docTitle("CoreAPI - ${projectVersion}-${minecraftVersion}")
     }
 }
 
