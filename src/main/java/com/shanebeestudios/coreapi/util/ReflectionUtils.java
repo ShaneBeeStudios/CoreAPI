@@ -10,6 +10,9 @@ import java.lang.reflect.Field;
 @SuppressWarnings({"CallToPrintStackTrace", "unused"})
 public class ReflectionUtils {
 
+    private ReflectionUtils() {
+    }
+
     /**
      * Get the value of a field from an object
      *

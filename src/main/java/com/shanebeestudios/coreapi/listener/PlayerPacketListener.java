@@ -8,14 +8,36 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Listener for packets
+ */
 public class PlayerPacketListener implements Listener {
+
+    private static boolean registered = false;
+
+    /** Register a listener for {@link PacketEvent packet events}
+     * @param plugin Your plugin to enable this listener
+     */
+    @SuppressWarnings("unused")
+    public static void registerListener(Plugin plugin) {
+        if (registered) {
+            throw new IllegalStateException("Listener is already registered!");
+        }
+        Bukkit.getPluginManager().registerEvents(new PlayerPacketListener(), plugin);
+        registered = true;
+    }
+
+    private PlayerPacketListener() {
+    }
 
     @EventHandler
     private void onPlayerJoin(PlayerJoinEvent event) {
