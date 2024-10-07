@@ -1,8 +1,8 @@
 package com.shanebeestudios.coreapi.listener;
 
 import com.shanebeestudios.coreapi.event.PacketEvent;
-import com.shanebeestudios.coreapi.event.PacketInboundEvent;
-import com.shanebeestudios.coreapi.event.PacketOutboundEvent;
+import com.shanebeestudios.coreapi.event.PacketServerboundEvent;
+import com.shanebeestudios.coreapi.event.PacketClientboundEvent;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
@@ -48,7 +48,7 @@ public class PlayerPacketListener implements Listener {
             @Override
             public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
                 if (msg instanceof Packet<?> packet) {
-                    PacketEvent packetEvent = new PacketOutboundEvent(packet, bukkitPlayer);
+                    PacketEvent packetEvent = new PacketClientboundEvent(packet, bukkitPlayer);
                     packetEvent.callEvent();
                     if (packetEvent.isCancelled()) return;
                 }
@@ -58,7 +58,7 @@ public class PlayerPacketListener implements Listener {
             @Override
             public void channelRead(@NotNull ChannelHandlerContext ctx, @NotNull Object msg) throws Exception {
                 if (msg instanceof Packet<?> packet) {
-                    PacketEvent packetEvent = new PacketInboundEvent(packet, bukkitPlayer);
+                    PacketEvent packetEvent = new PacketServerboundEvent(packet, bukkitPlayer);
                     packetEvent.callEvent();
                     if (packetEvent.isCancelled()) return;
                 }

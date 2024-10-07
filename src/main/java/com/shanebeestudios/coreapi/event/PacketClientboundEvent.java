@@ -8,21 +8,22 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Called when a packet is received from a client
+ * Called when a packet is sent to a client
  * <p>To listen to this event you will first need to execute {@link PlayerPacketListener#registerListener(Plugin)}</p>
  */
 @SuppressWarnings("unused")
-public class PacketInboundEvent extends PacketEvent {
+public class PacketClientboundEvent extends PacketEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
     /**
      * Why do I need to put a description? It's hidden
+     *
+     * @param packet packet
+     * @param player player
      * @hidden no
-     * @param packet p
-     * @param player p
      */
-    public PacketInboundEvent(Packet<?> packet, Player player) {
+    public PacketClientboundEvent(Packet<?> packet, Player player) {
         super(packet, player);
     }
 
