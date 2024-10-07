@@ -12,21 +12,24 @@ import java.util.regex.Pattern;
 /**
  * General utility class
  */
+@SuppressWarnings("unused")
 public class Utils {
 
     private Utils() {
     }
 
     private static final CommandSender CONSOLE = Bukkit.getConsoleSender();
-    private static String CONSOLE_PREFIX = "&7[&bCoreApi&7] ";
+    private static String PREFIX = "&7[&bCoreApi&7] ";
     private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f\\d]){6}>");
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
-    /** Set the prefix to be used in messages
+    /**
+     * Set the prefix to be used in messages
+     *
      * @param prefix Prefix to be used in messages
      */
     public static void setPrefix(String prefix) {
-        CONSOLE_PREFIX = prefix;
+        PREFIX = prefix;
     }
 
     /**
@@ -83,7 +86,7 @@ public class Utils {
         } else {
             format = message;
         }
-        sender.sendMessage(getColString(CONSOLE_PREFIX + format));
+        sender.sendMessage(getColString(PREFIX + format));
     }
 
     /**
@@ -100,7 +103,7 @@ public class Utils {
         } else {
             format = message;
         }
-        Bukkit.broadcastMessage(getColString(CONSOLE_PREFIX + format));
+        Bukkit.broadcastMessage(getColString(PREFIX + format));
     }
 
 }
