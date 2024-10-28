@@ -53,7 +53,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.shanebeestudios"
-            artifactId = project.name
+            artifactId = project.name.lowercase()
             version = "$projectVersion-$minecraftVersion"
             from(components["java"])
         }
