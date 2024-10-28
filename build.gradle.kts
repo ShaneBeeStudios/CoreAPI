@@ -47,6 +47,9 @@ tasks {
         )
         (options as StandardJavadocDocletOptions).docTitle("CoreAPI - $projectVersion")
     }
+    jar {
+        archiveFileName.set("CoreAPI-$projectVersion-$minecraftVersion.jar")
+    }
 }
 
 publishing {
