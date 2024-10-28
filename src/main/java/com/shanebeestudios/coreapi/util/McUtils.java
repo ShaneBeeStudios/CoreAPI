@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -205,7 +206,7 @@ public class McUtils {
      */
     public static <T> Registry<T> getRegistry(@NotNull ResourceKey<? extends Registry<? extends T>> registryKey, boolean unfreeze) {
         Preconditions.checkArgument(registryKey != null, "ResourceKey cannot be null");
-        Registry<T> registry = MinecraftServer.getServer().registryAccess().registryOrThrow(registryKey);
+        Registry<T> registry = MinecraftServer.getServer().registryAccess().lookupOrThrow(registryKey);
         if (unfreeze) {
             ReflectionUtils.setField("frozen", registry, false);
             ReflectionUtils.setField("unregisteredIntrusiveHolders", registry, new IdentityHashMap<>());
@@ -246,7 +247,8 @@ public class McUtils {
         Preconditions.checkArgument(bukkitType != null, "EntityType cannot be null");
         NamespacedKey key = bukkitType.getKey();
         ResourceLocation resourceLocation = McUtils.getResourceLocation(key);
-        return BuiltInRegistries.ENTITY_TYPE.get(resourceLocation);
+        Optional<Holder.Reference<EntityType<?>>> entityTypeReference = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation);
+        return entityTypeReference.<EntityType<?>>map(Holder.Reference::value).orElse(null);
     }
 
     /**
@@ -301,7 +303,7 @@ public class McUtils {
         ResourceLocation resourceLocation = McUtils.getResourceLocation(key);
         ResourceKey<T> resourceKey = ResourceKey.create(registry.key(), resourceLocation);
         try {
-            return registry.getHolderOrThrow(resourceKey);
+            return registry.get(resourceKey).orElse(null);
         } catch (IllegalStateException ignore) {
             return null;
         }
