@@ -42,6 +42,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.IdentityHashMap;
@@ -60,6 +62,19 @@ public class McUtils {
     }
 
     private static final BlockData AIR = Material.AIR.createBlockData();
+    private static final Object UNBOUND_TAG_SET;
+
+    static {
+        try {
+            Class<?> tagSetClass = Class.forName("net.minecraft.core.MappedRegistry$TagSet");
+            Method unboundMethod = tagSetClass.getDeclaredMethod("unbound");
+            unboundMethod.setAccessible(true);
+            UNBOUND_TAG_SET = unboundMethod.invoke(null);
+        } catch (ClassNotFoundException | IllegalAccessException |
+                 NoSuchMethodException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Get a Minecraft BlockPos from a Bukkit Location
@@ -209,6 +224,7 @@ public class McUtils {
         Registry<T> registry = MinecraftServer.getServer().registryAccess().lookupOrThrow(registryKey);
         if (unfreeze) {
             ReflectionUtils.setField("frozen", registry, false);
+            ReflectionUtils.setField("allTags", registry, UNBOUND_TAG_SET);
             ReflectionUtils.setField("unregisteredIntrusiveHolders", registry, new IdentityHashMap<>());
         }
         return registry;
