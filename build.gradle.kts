@@ -3,11 +3,11 @@ import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
 plugins {
     id("java")
     id("maven-publish")
-    id("io.papermc.paperweight.userdev") version "1.7.4" // the latest version can be found on the Gradle Plugin Portal
+    id("io.papermc.paperweight.userdev") version "1.7.5" // the latest version can be found on the Gradle Plugin Portal
 }
 
 // The Minecraft version we're currently building for
-val minecraftVersion = "1.21.3"
+val minecraftVersion = "1.21.4"
 // Version of CoreApi
 val projectVersion = "1.0.0"
 
