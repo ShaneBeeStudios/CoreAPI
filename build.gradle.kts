@@ -21,9 +21,6 @@ paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.MOJANG_PRODU
 
 repositories {
     mavenCentral()
-
-    // Command Api Snapshots
-    maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
 }
 
 dependencies {
@@ -57,7 +54,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.shanebeestudios"
             artifactId = project.name.lowercase()
-            version = "$projectVersion-$minecraftVersion"
+            version = projectVersion
             from(components["java"])
         }
     }
