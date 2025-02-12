@@ -3,7 +3,7 @@ import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
 plugins {
     id("java")
     id("maven-publish")
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.8" // the latest version can be found on the Gradle Plugin Portal
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.14" // the latest version can be found on the Gradle Plugin Portal
 }
 
 // The Minecraft version we're currently building for
@@ -39,8 +39,8 @@ tasks {
         options.encoding = Charsets.UTF_8.name()
         options.overview("src/main/javadoc/overview.html")
         (options as StandardJavadocDocletOptions).links(
-            "https://jd.papermc.io/paper/1.21.1/",
-            "https://jd.advntr.dev/api/4.17.0/",
+            "https://jd.papermc.io/paper/$minecraftVersion/",
+            "https://jd.advntr.dev/api/4.18.0/",
         )
         (options as StandardJavadocDocletOptions).docTitle("CoreAPI - $projectVersion")
     }
