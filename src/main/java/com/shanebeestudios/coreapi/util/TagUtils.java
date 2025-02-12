@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * General utility class for {@link Tag Tags}
  */
+@ApiStatus.AvailableSince("1.1.0")
 @SuppressWarnings({"UnstableApiUsage", "unused"})
 public class TagUtils {
 

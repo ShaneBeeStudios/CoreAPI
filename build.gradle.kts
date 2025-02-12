@@ -9,7 +9,7 @@ plugins {
 // The Minecraft version we're currently building for
 val minecraftVersion = "1.21.4"
 // Version of CoreApi
-val projectVersion = "1.0.0"
+val projectVersion = "1.1.0"
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
