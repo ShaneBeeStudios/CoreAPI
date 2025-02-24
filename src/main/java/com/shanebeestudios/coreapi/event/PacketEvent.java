@@ -11,7 +11,7 @@ import org.bukkit.event.Event;
 @SuppressWarnings("unused")
 public abstract class PacketEvent extends Event implements Cancellable {
 
-    private final Packet<?> packet;
+    private Packet<?> packet;
     private final Player player;
     private boolean cancelled = false;
 
@@ -28,6 +28,15 @@ public abstract class PacketEvent extends Event implements Cancellable {
      */
     public Packet<?> getPacket() {
         return this.packet;
+    }
+
+    /**
+     * Set the packet to use in this event
+     *
+     * @param packet Packet to switch to
+     */
+    public void setPacket(Packet<?> packet) {
+        this.packet = packet;
     }
 
     /**

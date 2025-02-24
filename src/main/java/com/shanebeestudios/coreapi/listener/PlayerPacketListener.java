@@ -49,8 +49,9 @@ public class PlayerPacketListener implements Listener {
             public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
                 if (msg instanceof Packet<?> packet) {
                     PacketEvent packetEvent = new PacketClientboundEvent(packet, bukkitPlayer);
-                    packetEvent.callEvent();
-                    if (packetEvent.isCancelled()) return;
+                    if (!packetEvent.callEvent()) return;
+                    super.write(ctx, packetEvent.getPacket(), promise);
+                    return;
                 }
                 super.write(ctx, msg, promise);
             }
@@ -59,8 +60,9 @@ public class PlayerPacketListener implements Listener {
             public void channelRead(@NotNull ChannelHandlerContext ctx, @NotNull Object msg) throws Exception {
                 if (msg instanceof Packet<?> packet) {
                     PacketEvent packetEvent = new PacketServerboundEvent(packet, bukkitPlayer);
-                    packetEvent.callEvent();
-                    if (packetEvent.isCancelled()) return;
+                    if (!packetEvent.callEvent()) return;
+                    super.channelRead(ctx, packetEvent.getPacket());
+                    return;
                 }
                 super.channelRead(ctx, msg);
             }
