@@ -39,7 +39,9 @@ tasks {
         options.overview("src/main/javadoc/overview.html")
         (options as StandardJavadocDocletOptions).links(
             "https://jd.papermc.io/paper/$minecraftVersion/",
-            "https://jd.advntr.dev/api/4.18.0/",
+            "https://jd.advntr.dev/api/4.19.0/",
+            "https://jd.advntr.dev/text-minimessage/4.19.0/",
+            "https://commons.apache.org/proper/commons-lang/apidocs/"
         )
         (options as StandardJavadocDocletOptions).docTitle("CoreAPI - $projectVersion")
     }
